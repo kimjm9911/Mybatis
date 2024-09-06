@@ -63,20 +63,16 @@ public class ProductController {
         //    (조건 3) insert가 정상적으로 수행된 경우, Print 객체를 통해 등록 성공했다는 성공 메세지를 출력하세요.
         //    (조건 4) insert가 정상적으로 수행되지 않은 경우, Print 객체를 통해 등록 실패했다는 오류 메세지를 출력하세요.
         product = new ProductDTO();
-        product.setProductName(product.getProductName());
-        product.setOriginCost(product.getOriginCost());
-        product.setReleaseDate(product.getReleaseDate());
-        product.setDiscountRate(product.getDiscountRate());
-        product.setSalesQuantity(product.getSalesQuantity());
-        product.setStockQuantity(product.getStockQuantity());
-        product.setCategoryCode(product.getCategoryCode());
-        product.setProductionStatus(product.getProductionStatus());
+        product.setReleaseDate(product.getReleaseDate().replace("-", ""));
+        product.setSalesQuantity("0");
+        product.setProductionStatus("Y");
 
         if(productService.registNewProduct(product)) {
             productPrint.printSuccessMessage("insert");
         } else {
             productPrint.printErrorMessage("insert");
         }
+
     }
 
     public void modifyProductInfo(ProductDTO product) {
@@ -91,7 +87,7 @@ public class ProductController {
         product.setProductCode(product.getProductCode());
         product.setProductName(product.getProductName());
         product.setOriginCost(product.getOriginCost());
-        product.setReleaseDate(product.getReleaseDate());
+        product.setReleaseDate(product.getReleaseDate().replace("-", ""));
         product.setDiscountRate(product.getDiscountRate());
         product.setSalesQuantity(product.getSalesQuantity());
         product.setStockQuantity(product.getStockQuantity());

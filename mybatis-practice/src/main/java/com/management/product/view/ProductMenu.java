@@ -52,7 +52,7 @@ public class ProductMenu {
         System.out.println("===================================");
         System.out.println("1. 제품명으로 조회");
         System.out.println("2. 판매점별 취급 제품 조회");
-        System.out.println("3. 이달의 신재품 조회");
+        System.out.println("3. 이달의 신제품 조회");
         System.out.println("4. 생산 중단 제품 조회");
         System.out.println("===================================");
         System.out.print("원하는 조건의 번호를 입력해 주세요 : ");
@@ -83,6 +83,8 @@ public class ProductMenu {
 
         SearchCondition searchCondition = new SearchCondition();
         // 주석을 지우고 searchCondition 검색조건과 검색어를 searchCondition 객체에 setting 하세요.
+        searchCondition.setOption(searchOption);
+        searchCondition.setValue(searchValue);
 
         return searchCondition;
     }
@@ -122,6 +124,7 @@ public class ProductMenu {
         String productionStatus = sc.nextLine().toUpperCase();
 
         // 주석을 지우고 받아온 활동 상태를 productDTO 객체에 setting 하세요.
+        productDTO.setSalesQuantity(salesQuantity);
         productDTO.setProductionStatus(productionStatus);
 
         System.out.println("===================================");

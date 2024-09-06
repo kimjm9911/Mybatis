@@ -25,7 +25,7 @@ public interface ProductDAO {
     List<ProductDTO> selectAllProductList();
 
 
-    List<ProductDTO> selectProductBySearchCondition(SearchCondition searchCondition);
+    List<ProductDTO> selectProductByCondition(SearchCondition searchCondition);
 
     int insertProduct(ProductDTO product);
 

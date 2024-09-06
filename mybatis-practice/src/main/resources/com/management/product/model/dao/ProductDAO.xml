@@ -56,6 +56,26 @@
              , category_code
              , production_status
           FROM product_info
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="option != null and option == productName">
+                product_name Like CONCAT('%', #{ productName }, '%')
+            </if>
+            <if test="option != null and option == salesStore">
+                <if test="value == 백화점">
+                  AND  discount_rate = 0
+                </if>
+                <if test="value == 아울렛">
+                  AND  <![CDATA[discount_rate > 0]]>
+                </if>
+            </if>
+            <if test="option != null and option == newProduct">
+                AND Year(release_date) == Year(CURRENT_DATE())
+                AND Month(release_date) == Month(CURRENT_DATE())
+            </if>
+            <if test="option != null and option == nonProduction">
+                AND production_status = 'N'
+            </if>
+        </trim>
 
     </select>
 
@@ -89,7 +109,32 @@
             (쿼리id) updateProduct -->
     <update id="updateProduct" parameterType="ProductDTO">
         UPDATE product_info
-           SET
+           <trim prefix="SET" suffixOverrides=",">
+               <if test="productName != skip and productName != ''">
+                   product_name = #{ productName },
+               </if>
+               <if test="categoryCode != skip and categoryCode != ''">
+                   category_code = #{ categoryCode },
+               </if>
+               <if test="originCost != skip and originCost != ''">
+                   origin_cost = #{ originCost },
+               </if>
+               <if test="releaseDate != skip and releaseDate != ''">
+                   release_date = #{ releaseDate },
+               </if>
+               <if test="stockQuantity != skip and stockQuantity != ''">
+                   stock_quantity = #{ stockQuantity },
+               </if>
+               <if test="discountRate != skip and discountRate != ''">
+                   discount_rate = #{ discountRate },
+               </if>
+               <if test="salesQuantity != skip and salesQuantity != ''">
+                   sales_quantity = #{ salesQuantity },
+               </if>
+               <if test="productionStatus != skip and productionStatus != ''">
+                   production_status = #{ productionStatus },
+               </if>
+           </trim>
     </update>
 
     <!-- 7. 제품 정보를 삭제하는 쿼리를 작성하세요.
